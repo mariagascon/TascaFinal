@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Enlace a bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--Enlace a jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Enlace a javascript-->
+    <script src="funciones.js"></script>
+    <title>Mostrar informació d'un curs</title>
+</head>
+
+<body>
+    <div>
+        <!--Título del programa-->
+        <h2 style="color:rgb(42, 165, 97)">Información de un curso</h2>
+    </div>
+
+    <div>
+        <!--Instrucciones-->
+        <h4 style="color:rgb(113, 236, 166)">Introduce los datos del curso para realizar la búsqueda</h4>
+    </div>
+
+    <br></br>
+
+    <div>
+        <!--Formulario-->
+        <form class="form-horizontal" id="formulario" role="form" onsubmit="return buscar()">
+            <!--Nombre del curso-->
+            <h5 style="border: 1px solid rgb(113, 236, 166)">Introduce el nombre del curso</h5>
+            <input class="form-control" style="background-color:rgb(185, 236, 185)" type="text" name="nomcurso" id="nomcurso" required>
+            <!--Tipo de curso-->
+            <h5 style="border: 1px solid rgb(113, 236, 166)">Introduce el tipo del curso</h5>
+            <input class="form-control" style="background-color:rgb(185, 236, 185)" type="text" name="tipcurso" id="tipcurso" required>
+            <!--Nombre del profesor-->
+            <h5 style="border: 1px solid rgb(113, 236, 166)">Introduce el nombre del profesor</h5>
+            <input class="form-control" style="background-color:rgb(185, 236, 185)" type="text" name="nomprofesor" id="nomprofesor" required>
+            <!--Fecha de inicio-->
+            <h5 style="border: 1px solid rgb(113, 236, 166)">Introduce la fecha de inicio del curso</h5>
+            <input class="form-control" style="background-color:rgb(185, 236, 185)" type="date" name="fechainicio" id="fechainicio" required>
+            <!--Fecha fin-->
+            <h5 style="border: 1px solid rgb(113, 236, 166)">Introduce la fecha fin del curso</h5>
+            <input class="form-control" style="background-color:rgb(185, 236, 185)" type="date" name="fechafin" id="fechafin" required>
+            <!--Horas de duración-->
+            <h5 style="border: 1px solid rgb(113, 236, 166)">Introduce las horas de duración del curso</h5>
+            <input class="form-control" style="background-color:rgb(185, 236, 185)" type="number" name="horas" id="horas" min="1" max="100" required>
+
+             <!--Botón-->
+            <button type="submit" class="btn btn-success">
+                <i>Buscar curso</i>
+            </button>
+        </form>
+
+        <br></br>
+
+        <!--Introducción de los datos en una tabla-->
+        <table id="tabla" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre del curso</th>
+                    <th>Tipo del curso</th>
+                    <th>Nombre del profesor</th>
+                    <th>Fecha de inicio</th>
+                    <th>Días restantes</th>
+                    <th>Horas del curso</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <script>
+                    //Esta función introduce en una tabla los datos que, previamente, se han introducido en el formulario. 
+                    function buscar() {
+                        if (comprobarfecha()==false) { //Previamente llama a la función que comprueba que las fechas sean válidas
+                            alert("La fecha final debe ser posterior a la fecha de inicio");
+                            return false;
+                        } else {
+                            var filanueva = $("<tr><td>"+$('#nomcurso').val()+"</td>"
+                                +"<td>"+$('#tipcurso').val()+"</td>"
+                                +"<td>"+$('#nomprofesor').val()+"</td>"
+                                +"<td>"+$('#fechainicio').val()+"</td>"
+                                +"<td>"+diasrestantes()+"</td>"
+                                +"<td>"+$('#horas').val()+"</td>"
+                                +"</tr>");
+                            filanueva.appendTo("#tabla");
+                            return false;
+                        }
+                    }
+                    
+                    //Esta función borra todos los elementos insertados, tanto del formulario como de la tabla. 
+                    function borrartabla() {
+                        var borrar = $("tabla").remove();
+                    }
+                </script>
+            </tbody>
+        </table>
+    </div>
+</body>
+    
+    <!--Al pulsar este botón se ejecuta la función 'borrartabla'-->
+    <form onsubmit="return borrartabla()">
+        <button type="submit" class="btn btn-danger">
+            <i>Borrar datos</i>
+        </button>
+    </form>
+
+</html>
