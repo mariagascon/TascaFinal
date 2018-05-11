@@ -69,7 +69,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="body">
                 <script>
                     //Esta función introduce en una tabla los datos que, previamente, se han introducido en el formulario. 
                     function buscar() {
@@ -85,8 +85,10 @@
                                 +"<td>"+$('#horas').val()+"</td>"
                                 +"</tr>");
                             filanueva.appendTo("#tabla");
+                            $("#formulario")[0].reset();
                             return false;
                         }
+                        
                     }
                     
                     //Esta función borra todos los elementos insertados, tanto del formulario como de la tabla. 
